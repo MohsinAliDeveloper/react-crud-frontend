@@ -265,14 +265,15 @@ const CRUD = () => {
   }, []);
 
   const getData = () => {
-    axios.get('https://localhost:7062/api/Employee')
+    axios.get('https://infoapplication-afewfch2hye4htew.canadacentral-01.azurewebsites.net/api/Employee')
       .then(result => setData(result.data))
       .catch(error => console.log(error));
   };
 
   const handleEdit = (id) => {
     handleShow();
-    axios.get(`https://localhost:7062/api/Employee/${id}`)
+    axios.get(`https://infoapplication-afewfch2hye4htew.canadacentral-01.azurewebsites.net/api/Employee/${id}`)
+
       .then((result) => {
         setEditName(result.data.name);
         setEditAge(result.data.age);
@@ -284,7 +285,7 @@ const CRUD = () => {
 
   const handleDelete = (id) => {
     if (window.confirm("Are you sure to delete this employee?")) {
-      axios.delete(`https://localhost:7062/api/Employee/${id}`)
+      axios.delete(`https://infoapplication-afewfch2hye4htew.canadacentral-01.azurewebsites.net/api/Employee/${id}`)
         .then((result) => {
           if (result.status === 200) {
             toast.success('Employee has been deleted');
@@ -296,7 +297,7 @@ const CRUD = () => {
   };
 
   const handleUpdate = () => {
-    const url = `https://localhost:7062/api/Employee/${editID}`;
+    const url = `https://infoapplication-afewfch2hye4htew.canadacentral-01.azurewebsites.net/api/Employee/${editID}`;
     const data = {
       id: editID,
       name: editName,
@@ -315,7 +316,7 @@ const CRUD = () => {
   };
 
   const handleSave = () => {
-    const url = 'https://localhost:7062/api/Employee';
+    const url = 'https://infoapplication-afewfch2hye4htew.canadacentral-01.azurewebsites.net/api/Employee';
     const data = { name, age, isActive };
 
     axios.post(url, data)
