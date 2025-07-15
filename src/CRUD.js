@@ -265,7 +265,7 @@ const CRUD = () => {
   }, []);
 
   const getData = () => {
-    axios.get('https://infoapplication-afewfch2hye4htew.canadacentral-01.azurewebsites.net/api/Employee')
+    axios.get("https://infoapplication-afewfch2hye4htew.canadacentral-01.azurewebsites.net/api/Employee")
       .then(result => setData(result.data))
       .catch(error => console.log(error));
   };
@@ -273,7 +273,6 @@ const CRUD = () => {
   const handleEdit = (id) => {
     handleShow();
     axios.get(`https://infoapplication-afewfch2hye4htew.canadacentral-01.azurewebsites.net/api/Employee/${id}`)
-
       .then((result) => {
         setEditName(result.data.name);
         setEditAge(result.data.age);
@@ -299,11 +298,12 @@ const CRUD = () => {
   const handleUpdate = () => {
     const url = `https://infoapplication-afewfch2hye4htew.canadacentral-01.azurewebsites.net/api/Employee/${editID}`;
     const data = {
-      id: editID,
-      name: editName,
-      age: editAge,
-      isActive: editIsActive,
-    };
+  ID: editID,
+  Name: editName,
+  Age: editAge,
+  IsActive: editIsActive
+};
+
 
     axios.put(url, data)
       .then(() => {
@@ -317,7 +317,12 @@ const CRUD = () => {
 
   const handleSave = () => {
     const url = 'https://infoapplication-afewfch2hye4htew.canadacentral-01.azurewebsites.net/api/Employee';
-    const data = { name, age, isActive };
+    const data = {
+  Name: name,
+  Age: age,
+  IsActive: isActive
+};
+
 
     axios.post(url, data)
       .then(() => {
@@ -386,14 +391,14 @@ const CRUD = () => {
                 data.map((item, index) => (
                   <tr key={index}>
                     <td>{index + 1}</td>
-                    <td>{item.name}</td>
-                    <td>{item.age}</td>
-                    <td>{item.isActive ? 'Yes' : 'No'}</td>
+                    <td>{item.Name}</td>
+<td>{item.Age}</td>
+<td>{item.IsActive ? 'Yes' : 'No'}</td>
                     <td>
-                      <Button variant="primary" size="sm" onClick={() => handleEdit(item.id)}>
+                      <Button variant="primary" size="sm" onClick={() => handleEdit(item.ID)}>
                         <i className="bi bi-pencil-square"></i>
                       </Button>{' '}
-                      <Button variant="danger" size="sm" onClick={() => handleDelete(item.id)}>
+                      <Button variant="danger" size="sm" onClick={() => handleDelete(item.ID)}>
                         <i className="bi bi-trash"></i>
                       </Button>
                     </td>
