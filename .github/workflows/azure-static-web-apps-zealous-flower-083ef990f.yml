@@ -14,52 +14,24 @@ jobs:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
     name: Build and Deploy Job
-    permissions:
-      id-token: write
-      contents: read
     steps:
       - uses: actions/checkout@v3
-        with:
-          submodules: true
-          lfs: false
 
-      # ✅ Install Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18' # or your preferred version
+          node-version: '18'
 
-      # ✅ Install dependencies
       - name: Install dependencies
         run: npm install
 
-      # ✅ Build the React app
       - name: Build the app
         run: npm run build
 
-      # ✅ List build folder contents (for debugging - optional)
-      - name: List build folder contents
-        run: ls -l build
-
-      # ✅ Deploy to Azure Static Web Apps
-      - name: Build And Deploy
-        id: builddeploy
+      - name: Deploy to Azure Static Web Apps
         uses: Azure/static-web-apps-deploy@v1
         with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_ZEALOUS_FLOWER_083EF990F }}
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
           action: "upload"
-          app_location: "/" # App source code path
-          api_location: "" # Api source code path - optional
-          output_location: "build" # Built app content directory
-          github_id_token: ${{ steps.idtoken.outputs.result }}
-
-  close_pull_request_job:
-    if: github.event_name == 'pull_request' && github.event.action == 'closed'
-    runs-on: ubuntu-latest
-    name: Close Pull Request Job
-    steps:
-      - name: Close Pull Request
-        id: closepullrequest
-        uses: Azure/static-web-apps-deploy@v1
-        with:
-          action: "close"
+          app_location: "/"                 # Root folder
+          output_location: "build"          # Built folder
