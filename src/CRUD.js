@@ -87,7 +87,6 @@ const handleSave = () => {
   };
 
   console.log('Sending data:', data);
-
   axios.post(url, data)
     .then(() => {
       getData();
