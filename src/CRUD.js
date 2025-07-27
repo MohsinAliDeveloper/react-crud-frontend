@@ -78,23 +78,28 @@ const CRUD = () => {
       .catch((error) => toast.error(error));
   };
 
-  const handleSave = () => {
-    const url = 'https://infoapplication-afewfch2hye4htew.canadacentral-01.azurewebsites.net/api/Employee';
-    const data = {
-  name: name,
-  age: age,
-  isActive: isActive
+const handleSave = () => {
+  const url = 'https://infoapplication-afewfch2hye4htew.canadacentral-01.azurewebsites.net/api/Employee';
+  const data = {
+    name: name,
+    age: parseInt(age),
+    isActive: isActive === 1 ? true : false  // converting to boolean
+  };
+
+  console.log('Sending data:', data);
+
+  axios.post(url, data)
+    .then(() => {
+      getData();
+      clear();
+      toast.success('Employee has been added');
+    })
+    .catch((error) => {
+      console.error('Error adding employee:', error.response?.data || error.message);
+      toast.error('Failed to add employee');
+    });
 };
 
-
-    axios.post(url, data)
-      .then(() => {
-        getData();
-        clear();
-        toast.success('Employee has been added');
-      })
-      .catch((error) => toast.error(error));
-  };
 
   const clear = () => {
     setName('');
